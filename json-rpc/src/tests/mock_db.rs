@@ -10,6 +10,7 @@ use libra_types::{
     contract_event::ContractEvent,
     epoch_change::EpochChangeProof,
     event::EventKey,
+    get_with_proof::{RequestItem, ResponseItem},
     ledger_info::{LedgerInfo, LedgerInfoWithSignatures},
     proof::{
         AccumulatorConsistencyProof, AccumulatorRangeProof, SparseMerkleProof,

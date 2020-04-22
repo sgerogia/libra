@@ -282,6 +282,7 @@ mod test {
         contract_event::ContractEvent,
         epoch_change::EpochChangeProof,
         event::{EventHandle, EventKey},
+        get_with_proof::{RequestItem, ResponseItem},
         ledger_info::{LedgerInfo, LedgerInfoWithSignatures},
         mempool_status::{MempoolStatus, MempoolStatusCode},
         proof::{
@@ -421,11 +422,7 @@ mod test {
             // Provide a VMValidator to the runtime.
             server.spawn(async move {
                 while let Some((txn, cb)) = mp_events.next().await {
-                    let vm_status = MockVMValidator
-                        .validate_transaction(txn)
-                        .await
-                        .unwrap()
-                        .status();
+                    let vm_status = MockVMValidator.validate_transaction(txn).unwrap().status();
                     let result = if vm_status.is_some() {
                         (MempoolStatus::new(MempoolStatusCode::VmError), vm_status)
                     } else {
